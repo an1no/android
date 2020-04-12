@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:id="@+id/layout">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/last_score"
-        android:layout_width="match_parent"
+        android:text="Last score: "
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/never_played"/>
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/last_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"/>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +35,6 @@
         android:layout_marginBottom="20dp" />
 
     <TextView
-        android:id="@+id/google_launched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/when_google_launched"
@@ -31,10 +42,12 @@
         android:textAlignment="center"
         android:layout_marginTop="15dp"/>
     <RadioGroup
+        android:id="@+id/first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioButton
+            android:id="@+id/google_launched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/google_launched"
@@ -51,7 +64,6 @@
             android:layout_marginRight="10dp"/>
     </RadioGroup>
     <TextView
-        android:id="@+id/simpsons_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/what_house_number_of_simpsons"
@@ -59,6 +71,7 @@
         android:textSize="22dp"
         android:layout_marginTop="15dp"/>
     <RadioGroup
+        android:id="@+id/second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -73,13 +86,13 @@
             android:text="@string/n1_house_number_of_simpsons"
             android:layout_marginRight="10dp"/>
         <RadioButton
+            android:id="@+id/simpsons_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/house_number_of_simpsons"
             android:layout_marginRight="10dp"/>
     </RadioGroup>
     <TextView
-        android:id="@+id/known_quarryman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/who_known_as_quarryman"
@@ -87,10 +100,12 @@
         android:textSize="22dp"
         android:layout_marginTop="15dp"/>
     <RadioGroup
+        android:id="@+id/third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioButton
+            android:id="@+id/known_quarryman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/known_as_quarryman"
@@ -107,7 +122,6 @@
             android:layout_marginRight="10dp"/>
     </RadioGroup>
     <TextView
-        android:id="@+id/metallica_drummer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/who_metallica_drummer"
@@ -115,10 +129,12 @@
         android:textSize="22dp"
         android:layout_marginTop="15dp"/>
     <RadioGroup
+        android:id="@+id/fourth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioButton
+            android:id="@+id/metallica_drummer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/n1_metallica_drummer"
@@ -135,8 +151,10 @@
             android:layout_marginRight="10dp"/>
     </RadioGroup>
     <Button
+        android:id="@+id/check_answers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/btn_check"/>
+        android:text="@string/btn_check"
+        tools:ignore="InvalidId" />
 </LinearLayout>
