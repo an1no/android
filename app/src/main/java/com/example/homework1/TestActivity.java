@@ -1,6 +1,5 @@
 package com.example.homework1;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +40,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
+
     private void Submit(TestActivity view) {
         int chk1 = ((RadioGroup)findViewById(R.id.first)).getCheckedRadioButtonId();
         int chk2 = ((RadioGroup)findViewById(R.id.second)).getCheckedRadioButtonId();
