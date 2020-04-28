@@ -1,22 +1,4 @@
 <resources>
     <string name="app_name">Test</string>
-    <string name="answer_questions">Answer The Questions</string>
-    <string name="who_metallica_drummer">Who is the drummer of Metallica?</string>
-    <string name="metallica_drummer">Lars Ulrich</string>
-    <string name="n1_metallica_drummer">Brian Jones</string>
-    <string name="n2_metallica_drummer">Ian Stewart</string>
-    <string name="who_known_as_quarryman">Which famous group was once known as The Quarrymen?</string>
-    <string name="known_as_quarryman">The Beatles</string>
-    <string name="n1_known_as_quarryman">Pink Floyd</string>
-    <string name="n2_known_as_quarryman">The Rolling Stones</string>
-    <string name="what_house_number_of_simpsons">What is the house number of the Simpsons?</string>
-    <string name="house_number_of_simpsons">Number 742</string>
-    <string name="n1_house_number_of_simpsons">Number 751</string>
-    <string name="n2_house_number_of_simpsons">Number 762</string>
-    <string name="when_google_launched">In what year was Google launched on the web?</string>
-    <string name="google_launched">1998</string>
-    <string name="n1_google_launched">1997</string>
-    <string name="n2_google_launched">1995</string>
-    <string name="btn_check">Check</string>
-    <string name="never_played">Never Played</string>
+    <string name="add_question_hint">Enter question here...</string>
 </resources>

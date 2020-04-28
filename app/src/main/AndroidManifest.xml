@@ -8,15 +8,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.homework1.TestActivity" android:label="Questions">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.homework1.CheckActivity"
-            android:label="Answers"/>
+        <activity android:name=".AddQuestionActivity" >
+
+        </activity>
+        <activity android:name=".QuizActivity">
+
+        </activity>
+        <activity android:name=".ShowQuestionsActivity"></activity>
     </application>
 
 </manifest>
