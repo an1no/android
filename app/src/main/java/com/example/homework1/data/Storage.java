@@ -3,7 +3,12 @@ package com.example.homework1.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.homework1.classes.Question;
+import com.example.homework1.classes.Questions;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Storage{
 
@@ -28,10 +33,20 @@ public class Storage{
         SharedPreferences sharedPreferences = getInstance(context);
         return sharedPreferences.getString(key, null);
     }
-    public void deleteObject(Context context, Object key){
-        SharedPreferences sharedPreferences = getInstance(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(new Gson().toJson(key));
-        editor.commit();
+
+    public void deleteQuestion(Context context, String key) {
+        Object questionsAsObject = getObject(context, "question_storage", Questions.class);
+        Questions questions = (Questions) questionsAsObject;
+        ArrayList<Question> questionArrayList = questions.getQuestions();
+        Iterator<Question> questionIterator = questionArrayList.iterator();
+        while (questionIterator.hasNext()) {
+            Question question = questionIterator.next();
+            if(question.getId()!= null && question.getId().equals(key)) {
+                questionIterator.remove();
+                break;
+            }
+        }
+        questions.setQuestions(questionArrayList);
+        add(context,"question_storage",questions);
     }
 }

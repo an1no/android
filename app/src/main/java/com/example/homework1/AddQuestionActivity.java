@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +14,7 @@ import com.example.homework1.classes.Questions;
 import com.example.homework1.data.Storage;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class AddQuestionActivity extends AppCompatActivity {
     EditText mQuestion;
@@ -48,16 +48,13 @@ public class AddQuestionActivity extends AppCompatActivity {
             textView = findViewById(textViewIDs[i-1]);
             Answer answer = new Answer();
             answer.setAnswer(textView.getText().toString());
-            if( selectedId == i ) {
-                answer.setCorrect(true);
-            } else {
-                answer.setCorrect(false);
-            }
+            answer.setCorrect(selectedId==i);
             answerArrayList.add(answer);
         }
-        question.setQuestion(mQuestion.toString());
+        question.setQuestion(mQuestion.getText().toString());
+        question.setId(UUID.randomUUID().toString());
         question.setAnswers(answerArrayList);
-        questions.setQuestions(question);
+        questions.addQuestions(question);
         storage.add(this, "question_storage", questions);
         finish();
     }

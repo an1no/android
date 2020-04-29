@@ -17,7 +17,7 @@
         <activity android:name=".AddQuestionActivity" >
 
         </activity>
-        <activity android:name=".QuizActivity">
+        <activity android:name=".ShowHistoryActivity">
 
         </activity>
         <activity android:name=".ShowQuestionsActivity"></activity>

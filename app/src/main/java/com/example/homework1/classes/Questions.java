@@ -9,7 +9,12 @@ public class Questions {
         return questions;
     }
 
-    public void setQuestions(Question question) {
+    public void addQuestions(Question question) {
         questions.add(question);
     }
+    public void setQuestions(ArrayList<Question> questionArrayList) {
+        questions.addAll(questionArrayList);
+    }
+
+
 }

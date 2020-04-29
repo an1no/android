@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Question{
     private String question;
     private ArrayList<Answer> answers;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Question() {
 
@@ -30,4 +39,6 @@ public class Question{
     public void setAnswers(ArrayList<Answer> answers) {
         this.answers = answers;
     }
+
+
 }

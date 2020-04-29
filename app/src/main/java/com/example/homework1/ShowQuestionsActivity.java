@@ -1,27 +1,31 @@
 package com.example.homework1;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homework1.classes.Answer;
+import com.example.homework1.classes.Histories;
+import com.example.homework1.classes.History;
 import com.example.homework1.classes.Question;
 import com.example.homework1.classes.Questions;
+import com.example.homework1.data.HistoryStorage;
 import com.example.homework1.data.Storage;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,13 +53,29 @@ public class ShowQuestionsActivity extends AppCompatActivity {
             questionArrayAdapter.addAll(questionsArrayList);
         }
         findViewById(R.id.complete_quiz).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                complete();
+                int count = complete();
+                HistoryStorage historyStorage = new HistoryStorage();
+                History history = new History();
+                history.setScore(count);
+                history.setDate(LocalDateTime.now().toString());
+                Histories histories;
+                Object historyStorageObject = (Histories)historyStorage.getObject(ShowQuestionsActivity.this, "history_storage", Histories.class);
+                if(historyStorageObject!= null) {
+                    histories = (Histories) historyStorageObject;
+                } else {
+                    histories = new Histories();
+                }
+                histories.addHistories(history);
+                historyStorage.add(ShowQuestionsActivity.this, "history_storage", histories);
+                finish();
+
             }
         });
     }
-    public void complete() {
+    public int complete() {
         int[] radioButtonIds = new int[]{R.id.radio1, R.id.radio2, R.id.radio3, R.id.radio4};
         RadioButton radioButton;
         int count=0;
@@ -65,13 +85,9 @@ public class ShowQuestionsActivity extends AppCompatActivity {
                 if(radioButton.isChecked() && question.getAnswers().get(i).isCorrect()) count++;
             }
         }
+        return count;
     }
-    public void deleteQuestions() {
-        Storage storage = new Storage();
-        for (Question question:questionsArrayList) {
-            storage.deleteObject(this, question);
-        }
-    }
+
     class QuestionArrayAdapter extends ArrayAdapter<Question> {
         private Context mContext;
 
@@ -85,10 +101,18 @@ public class ShowQuestionsActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Question question = getItem(position);
+            final Question question = getItem(position);
             LayoutInflater inflater = (LayoutInflater)mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.view_question, parent,false);
+            Button deleteButton = view.findViewById(R.id.delete_button);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Storage storage = new Storage();
+                    storage.deleteQuestion(mContext, question.getId());
+                }
+            });
             TextView textView = view.findViewById(R.id.question_item);
             textView.setText(question.getQuestion());
             TextView textView1;
