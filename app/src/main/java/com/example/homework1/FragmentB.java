@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,20 @@ import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+
+import com.example.homework1.classes.Message;
+import com.example.homework1.classes.User;
+
+import java.time.LocalDateTime;
 
 public class FragmentB extends Fragment {
     public static String NOTIFICATION = "com.example.homework1.NOTIFICATION";
     public static String NOTIFICATION_DATA = "data";
     private FragmentAMessageCatcherBroadcast fragmentAMessageCatcherBroadcast;
-
+    private User mzia = new User("mzia");
+    private Message message;
     private EditText editText;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,   @Nullable Bundle savedInstanceState) {
@@ -29,9 +37,14 @@ public class FragmentB extends Fragment {
         View view = inflater.inflate(R.layout.view_fragment_b, container, false);
         editText = view.findViewById(R.id.input);
         view.findViewById(R.id.send2).setOnClickListener(new OnClickListener() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onClick(View v) {
             String notificationData = editText.getText().toString();
+            message = new Message();
+            message.setMessage(notificationData);
+            message.setUser(mzia);
+            message.setDate(LocalDateTime.now().toString());
             Intent intent = new Intent();
             intent.setAction(NOTIFICATION);
             intent.putExtra(NOTIFICATION_DATA, notificationData);
