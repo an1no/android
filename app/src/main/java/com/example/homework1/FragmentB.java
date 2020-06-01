@@ -20,7 +20,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.homework1.classes.Message;
+import com.example.homework1.classes.Messages;
 import com.example.homework1.classes.User;
+import com.example.homework1.data.Storage;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +32,7 @@ public class FragmentB extends Fragment {
     private FragmentAMessageCatcherBroadcast fragmentAMessageCatcherBroadcast;
     private User mzia = new User("mzia");
     private Message message;
+    private Messages messages;
     private EditText editText;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,   @Nullable Bundle savedInstanceState) {
@@ -45,6 +48,15 @@ public class FragmentB extends Fragment {
             message.setMessage(notificationData);
             message.setUser(mzia);
             message.setDate(LocalDateTime.now().toString());
+            Storage storage = new Storage();
+            Object ChatStorage = storage.getObject(getContext(), "chat_storage", Messages.class);
+            if(ChatStorage!=null){
+                messages =(Messages) ChatStorage;
+            } else {
+                messages = new Messages();
+            }
+            messages.addMessages(message);
+            storage.add(getContext(),"chat_storage", messages);
             Intent intent = new Intent();
             intent.setAction(NOTIFICATION);
             intent.putExtra(NOTIFICATION_DATA, notificationData);

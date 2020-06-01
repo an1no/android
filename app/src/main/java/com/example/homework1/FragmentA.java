@@ -19,10 +19,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.homework1.classes.Message;
+import com.example.homework1.classes.Messages;
 import com.example.homework1.classes.User;
+import com.example.homework1.data.Storage;
+
 import java.time.LocalDateTime;
-
-
 
 public class FragmentA extends Fragment {
     public static String NOTIFICATION = "com.example.homework1.NOTIFICATION";
@@ -32,6 +33,7 @@ public class FragmentA extends Fragment {
     private String notificationData;
     private User zezva = new User("zezva");
     private Message message;
+    private Messages messages;
     @Override
     public View onCreateView( final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_fragment_a, container, false);
@@ -45,6 +47,15 @@ public class FragmentA extends Fragment {
                 message.setMessage(notificationData);
                 message.setUser(zezva);
                 message.setDate(LocalDateTime.now().toString());
+                Storage storage = new Storage();
+               Object ChatStorage = storage.getObject(getContext(), "chat_storage", Messages.class);
+               if(ChatStorage!=null){
+                   messages =(Messages) ChatStorage;
+               } else {
+                   messages = new Messages();
+               }
+                messages.addMessages(message);
+                storage.add(getContext(),"chat_storage", messages);
                 Intent intent = new Intent();
                 intent.setAction(NOTIFICATION);
                 intent.putExtra(NOTIFICATION_DATA, notificationData);
