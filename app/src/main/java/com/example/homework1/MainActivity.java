@@ -19,12 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentA = (FragmentA) getSupportFragmentManager().findFragmentById(R.id.fa);
         fragmentB = (FragmentB) getSupportFragmentManager().findFragmentById(R.id.fb);
-        fragmentA.setCallback(new FragmentA.Callback() {
-            @Override
-            public void onSent(String text) {
-                fragmentB.onSentReceived(text);
-            }
-        });
     }
 
 

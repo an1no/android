@@ -11,13 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 
 import androidx.fragment.app.Fragment;
 
 public class FragmentA extends Fragment {
-    private Callback mCallback;
-    //private FragmentBMessageCatcherBroadcast fragmentBMessageCatcherBroadcast;
+    public static String NOTIFICATION = "com.example.homework1.NOTIFICATION";
+    public static String NOTIFICATION_DATA = "data";
+    private FragmentBMessageCatcherBroadcast fragmentBMessageCatcherBroadcast;
     private EditText editText;
     private String notificationData;
     @Override
@@ -28,35 +30,31 @@ public class FragmentA extends Fragment {
             @Override
             public void onClick(View v) {
                 notificationData = editText.getText().toString();
-                if (mCallback != null) {
-                    mCallback.onSent(notificationData);
-                }
+                Intent intent = new Intent();
+                intent.setAction(NOTIFICATION);
+                intent.putExtra(NOTIFICATION_DATA, notificationData);
+                getActivity().sendBroadcast(intent);
                 editText.getText().clear();
             }
         });
-       // initBroadcast();
+        initBroadcast();
         return view;
     }
-//    void initBroadcast() {
-//        fragmentBMessageCatcherBroadcast = new FragmentBMessageCatcherBroadcast();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(FragmentB.NOTIFICATION);
-//        getActivity().registerReceiver(fragmentBMessageCatcherBroadcast, filter);
-//    }
-
-    public interface Callback {
-
-        void onSent(String text);
+    void initBroadcast() {
+        fragmentBMessageCatcherBroadcast = new FragmentBMessageCatcherBroadcast();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(FragmentB.NOTIFICATION);
+        getActivity().registerReceiver(fragmentBMessageCatcherBroadcast, filter);
     }
-    public void setCallback(Callback mCallback) {
-        this.mCallback = mCallback;
+
+    public static class FragmentBMessageCatcherBroadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra(FragmentB.NOTIFICATION_DATA)) {
+                String dataText = intent.getStringExtra(FragmentB.NOTIFICATION_DATA);
+                Toast.makeText(context, dataText, Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
-//    public static class FragmentBMessageCatcherBroadcast extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            if (intent.hasExtra(FragmentB.NOTIFICATION_DATA)) {
-//                String dataText = intent.getStringExtra(FragmentB.NOTIFICATION_DATA);
-//            }
-//        }
-//    }
 }
