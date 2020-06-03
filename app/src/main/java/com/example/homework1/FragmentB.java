@@ -44,14 +44,14 @@ public class FragmentB extends Fragment {
     private Messages messages;
     private EditText editText;
     private ListView listView;
-    private MessageArrayAdapter messageArrayAdapter;
+    private static MessageArrayAdapter messageArrayAdapter;
     private ArrayList<Message> messageArrayList;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,   @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.view_fragment_b, container, false);
         listView = view.findViewById(R.id.chat2);
-        editText = view.findViewById(R.id.input);
+        editText = view.findViewById(R.id.input2);
         messageArrayAdapter = new MessageArrayAdapter(getContext(), 0,new ArrayList<Message>());
         Storage storage = new Storage();
         Object ChatStorage = storage.getObject(getContext(), "chat_storage", Messages.class);
@@ -99,7 +99,12 @@ public class FragmentB extends Fragment {
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra(NOTIFICATION_DATA)) {
                 String dataText = intent.getStringExtra(NOTIFICATION_DATA);
-                Toast.makeText(context, dataText, Toast.LENGTH_SHORT).show();
+                ArrayList<Message> messages = new ArrayList<>();
+                Message message = new Message();
+                message.setMessage(dataText);
+                messages.add(message);
+                message.setUser(new User("zezva"));
+                messageArrayAdapter.addAll(messages);
             }
         }
     }

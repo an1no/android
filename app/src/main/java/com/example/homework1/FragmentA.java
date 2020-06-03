@@ -43,12 +43,12 @@ public class FragmentA extends Fragment {
     private Messages messages;
     Storage storage;
     private ListView listView;
-    private MessageArrayAdapter messageArrayAdapter;
+    private static MessageArrayAdapter messageArrayAdapter;
     private ArrayList<Message> messageArrayList;
     @Override
     public View onCreateView( final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_fragment_a, container, false);
-        editText = view.findViewById(R.id.input);
+        editText = view.findViewById(R.id.input1);
         listView = view.findViewById(R.id.chat1);
         messageArrayAdapter = new MessageArrayAdapter(getContext(), 0,new ArrayList<Message>());
         storage = new Storage();
@@ -94,7 +94,12 @@ public class FragmentA extends Fragment {
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra(FragmentB.NOTIFICATION_DATA)) {
                 String dataText = intent.getStringExtra(FragmentB.NOTIFICATION_DATA);
-                Toast.makeText(context, dataText, Toast.LENGTH_SHORT).show();
+                ArrayList<Message> messages = new ArrayList<>();
+                Message message = new Message();
+                message.setMessage(dataText);
+                messages.add(message);
+                message.setUser(new User("mzia"));
+                messageArrayAdapter.addAll(messages);
             }
         }
     }
