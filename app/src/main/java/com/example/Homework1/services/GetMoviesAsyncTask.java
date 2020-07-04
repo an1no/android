@@ -2,16 +2,20 @@ package com.example.Homework1.services;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import com.example.Homework1.Movie;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class GetMoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
     private Callback callback;
+
     @Override
     protected ArrayList<Movie> doInBackground(Void... voids) {
         ArrayList<Movie> arrayList = new ArrayList<>();
@@ -36,6 +40,11 @@ public class GetMoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<Movie>> 
                     String imageUrl = imgs.get(0).attributes().get("href");
                     movie.setImageUrl(imageUrl);
                 }
+                Elements links = element.getElementsByClass("watch");
+                if (links.size() > 0) {
+                    String trailerLink = links.get(0).attr("id");
+                    movie.setLink(trailerLink);
+                }
                 arrayList.add(movie);
             }
         } catch (IOException e) {
@@ -46,7 +55,6 @@ public class GetMoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<Movie>> 
 
     @Override
     protected void onPostExecute(ArrayList<Movie> movies) {
-        //main thread here
         Log.d("onPostExecute", Thread.currentThread().getName());
         if (callback != null) {
             callback.onDataReceived(movies);
@@ -54,7 +62,6 @@ public class GetMoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<Movie>> 
     }
 
     public interface Callback {
-
         void onDataReceived(ArrayList<Movie> movies);
     }
 

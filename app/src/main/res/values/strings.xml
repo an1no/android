@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="new_here_sign_up_here"><u>New here? Sign up here</u></string>
+    <string name="login">Login</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="sign_up">sign up</string>
+    <string name="username">Username</string>
+    <string name="already_have_an_account_sign_in"><u>Already have an account? Sign in</u></string>
 </resources>
