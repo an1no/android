@@ -55,7 +55,6 @@ public class GetMoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<Movie>> 
 
     @Override
     protected void onPostExecute(ArrayList<Movie> movies) {
-        Log.d("onPostExecute", Thread.currentThread().getName());
         if (callback != null) {
             callback.onDataReceived(movies);
         }
